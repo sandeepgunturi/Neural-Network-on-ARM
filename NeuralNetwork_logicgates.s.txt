@@ -1,0 +1,168 @@
+     AREA     appcode, CODE, READONLY
+     EXPORT __main
+	 IMPORT printMsg 	 
+	 IMPORT printMsg2p
+	 IMPORT printMsg4p
+     ENTRY 
+__main  FUNCTION	
+; IGNORE THIS PART 	
+	    
+		VLDR.F32 s14,=1;data
+		VLDR.F32 s15,=0;
+		VLDR.F32 s16,=0;
+		
+		VMOV.F32 R1,s14;
+		VMOV.F32 R2,s15;
+		VMOV.F32 R3,s16;
+		
+		MOV R8,#3;
+		
+		CMP R8,#0;
+		BEQ or_log
+		CMP R8,#1;
+		BEQ and_log
+		CMP R8,#2;
+		BEQ nand_log
+		CMP R8,#3;
+		
+		
+		
+sigmoid	VMOV.F32 s0,#10.0;i
+		MOV R6,#10;
+		;VMOV.F32 s1,#3.0;x
+		VMOV.F32 s7,#1.0;
+		VMOV.F32 s2,#1.0;S2 has answer(sum)
+		
+		
+		
+		
+loop	VDIV.F32 s3,s2,s0;
+		VMUL.F32 s4,s1,s3;
+		VADD.F32 s2,s4,s7;
+		VSUB.F32 s0,s0,s7;
+		SUB R6,R6,#1;
+		CMP R6,#0;
+		BNE loop
+		
+		VADD.F32 s5,s2,s7;1+e^x
+		VDIV.F32 s6,s2,s5;
+		VLDR.F32 s20,=0.5;
+		VCMP.F32 s6,s20;
+		VMRS APSR_nzcv, FPSCR
+		VMOVGT.F32 s21,#1.0;
+		;VMOVLE.F32 s21,#0.0;
+		VMOV.F32 R0,s21;
+		
+		B printMsg
+		B stop
+	
+		
+		
+and_log VLDR.F32 s11,=-0.1;weights
+		VLDR.F32 s12,=0.2;
+		VLDR.F32 s13,=0.2;
+
+		VLDR.F32 s17,=-0.2;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+
+or_log VLDR.F32 s11,=-0.1;weights
+		VLDR.F32 s12,=0.7;
+		VLDR.F32 s13,=0.7;
+		
+		VLDR.F32 s17,=-0.1;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+
+nand_log VLDR.F32 s11,=0.6;weights
+		VLDR.F32 s12,=-0.8;
+		VLDR.F32 s13,=-0.8;
+		
+		VLDR.F32 s17,=0.3;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+
+nor_log VLDR.F32 s11,=0.5;weights
+		VLDR.F32 s12,=-0.7;
+		VLDR.F32 s13,=-0.7;
+		
+		VLDR.F32 s17,=0.1;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+xor_log VLDR.F32 s11,=-5;weights
+		VLDR.F32 s12,=20;
+		VLDR.F32 s13,=10;
+		
+		VLDR.F32 s17,=1;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+xnor_log VLDR.F32 s11,=-5;weights
+		VLDR.F32 s12,=20;
+		VLDR.F32 s13,=20;
+		
+		VLDR.F32 s17,=1;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+not_log VLDR.F32 s11,=0.5;weights
+		VLDR.F32 s12,=-0.7;
+		VLDR.F32 s13,=0.0;
+		
+		VLDR.F32 s17,=0.1;bias
+		VMUL.F32 s11,s11,s14;
+		VMUL.F32 s12,s12,s15;
+		VMUL.F32 s13,s13,s16;
+		
+		VADD.F32 s18,s11,s12;
+		;VADD.F32 s18,s18,s13;
+		VADD.F32 s18,s18,s17;add bias
+		VMOV.F32 s1,s18;
+		B sigmoid;
+
+
+
+stop B stop ; stop program
+     ENDFUNC
+	 END
+
