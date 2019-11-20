@@ -1,0 +1,53 @@
+     AREA     appcode, CODE, READONLY
+     EXPORT __main
+	 IMPORT printMsg 	 
+	 IMPORT printMsg2p
+	 IMPORT printMsg4p
+     ENTRY 
+__main  FUNCTION	
+; IGNORE THIS PART 	
+	    
+		VLDR.F32 s8,=5.5;
+		VLDR.F32 s10,=1000;
+		MOV R6,#21;
+		VLDR.F32 s9,=0.5;const
+		
+loop1	VMOV.F32 s0,#10.0;i
+		MOV R5,#10;
+		VSUB.F32 s8,s8,s9;
+		VMOV.F32 s1,s8
+		;VMOV.F32 s1,#0.5;x
+		VMOV.F32 s7,#1.0;
+		VMOV.F32 s2,#1.0;S2 has answer(sum)
+		
+		
+loop	VDIV.F32 s3,s2,s0;
+		VMUL.F32 s4,s1,s3;
+		VADD.F32 s2,s4,s7;
+		VSUB.F32 s0,s0,s7;
+		SUB R5,R5,#1;
+		CMP R5,#0;
+		BNE loop
+		
+		VADD.F32 s5,s2,s7;1+e^x
+		VDIV.F32 s6,s2,s5;
+		
+		
+		VMUL.F32 s6,s6,s10;
+		VMOV.F32 R1,s6;
+		VMOV.F32 R0,s1;
+		
+		BL printMsg;
+		
+		SUB R6,R6,#1;
+		CMP R6,#0; 
+		BNE loop1
+		
+		
+		
+stop B stop ; stop program
+     ENDFUNC
+	 END
+
+;n=10:[2.71828,7.38899,20.0797,54.4431,146.381,386.234,988.592,2432.12,5720.68,12842.3]
+;n=20:[2.71828,7.38906,20.0855,54.5981,148.413,403.428,1096.62,2980.68,8099.52,21991.5]
