@@ -4,19 +4,20 @@
 #include<stdio.h>
 void printMsg(int a,int b,int c,int d)
 {
-float a1=*((float*) &a) ;
-float b1=*((float*) &b) ;
-float c1=*((float*) &c) ;
-float d1=*((float*) &d) ;
+//float a1=*((float*) &a) ;
+//float b1=*((float*) &b) ;
+//float c1=*((float*) &c) ;
 char Msg1[10];
 char Msg2[10];
 char Msg3[10];
 char Msg4[10];
+	
 char *ptr;
-sprintf(Msg1, "%f", a1);
-sprintf(Msg2, "%f", b1);
-sprintf(Msg3,"%f",c1);
-sprintf(Msg4,"%f",d1);
+sprintf(Msg1, "%x", a);
+sprintf(Msg2, "%x", b);
+sprintf(Msg3,"%x",c);
+sprintf(Msg4,"%x",d);
+	
 ptr = Msg1 ;
    while(*ptr != '\0'){
       ITM_SendChar(*ptr);
@@ -35,13 +36,144 @@ ptr=Msg3 ;
       ++ptr;
    }
 ITM_SendChar(',');
-ptr=Msg4 ;
- while(*ptr != '\0'){
+ptr = Msg4 ;
+   while(*ptr != '\0'){
       ITM_SendChar(*ptr);
       ++ptr;
    }
 ITM_SendChar('\n');
 }
+void printMsgnand(int a,int b,int c,int d)
+{
+//char Msg1[10];
+//char Msg2[10];
+//char Msg3[10];
+//char Msg4[10];
+	
+/*char *ptr;
+sprintf(Msg1, "%x", a);
+sprintf(Msg2, "%x", b);
+sprintf(Msg3,"%x",c);
+sprintf(Msg4,"%x",d);
+	
+ptr = Msg1 ;
+   while(*ptr != '\0'){
+      ITM_SendChar(*ptr);
+      ++ptr;
+   }
+*/
+ITM_SendChar('N');
+ITM_SendChar('A');
+ITM_SendChar('N');
+ITM_SendChar('D');
+ITM_SendChar('\n');
+	
+ITM_SendChar('X');
+ITM_SendChar('1');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('2');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('3');
+ITM_SendChar(',');
+
+ITM_SendChar('Y');	
+ITM_SendChar('\n');
+
+}
+void printMsgnor(int a,int b,int c,int d)
+{
+ITM_SendChar('N');
+ITM_SendChar('O');
+ITM_SendChar('R');
+ITM_SendChar('\n');
+	
+ITM_SendChar('X');
+ITM_SendChar('1');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('2');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('3');
+ITM_SendChar(',');
+
+ITM_SendChar('Y');	
+ITM_SendChar('\n');
+}
+void printMsgand(int a,int b,int c,int d)
+{
+ITM_SendChar('A');
+ITM_SendChar('N');
+ITM_SendChar('D');
+ITM_SendChar('\n');
+	
+ITM_SendChar('X');
+ITM_SendChar('1');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('2');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('3');
+ITM_SendChar(',');
+
+ITM_SendChar('Y');	
+ITM_SendChar('\n');
+}
+void printMsgor(int a,int b,int c,int d)
+{
+ITM_SendChar('O');
+ITM_SendChar('R');
+ITM_SendChar('\n');
+	
+ITM_SendChar('X');
+ITM_SendChar('1');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('2');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('3');
+ITM_SendChar(',');
+
+ITM_SendChar('Y');	
+ITM_SendChar('\n');
+}
+void printMsgnot(int a,int b,int c,int d)
+{
+ITM_SendChar('N');
+ITM_SendChar('O');
+ITM_SendChar('T');
+ITM_SendChar('\n');
+	
+ITM_SendChar('X');
+ITM_SendChar('1');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('2');
+ITM_SendChar(',');
+
+ITM_SendChar('X');
+ITM_SendChar('3');
+ITM_SendChar(',');
+
+ITM_SendChar('Y');	
+ITM_SendChar('\n');
+}
+
+
+
 void printMsg2p(const int a, const int b)
 {
 char Msg[100];
